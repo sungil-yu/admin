@@ -23,7 +23,8 @@ public class Category {
 
     private String type;
 
-    private String tilte;
+    private String title;
+
 
     private LocalDateTime createdAt;
 
