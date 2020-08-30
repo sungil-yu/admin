@@ -9,33 +9,29 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-public class Item {
+public class OrderDetail {
+
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String  status;
+    private LocalDateTime orderAt;
 
-    private String title;
+    private LocalDateTime arrivalDate;
 
-    private String name;
+    private Integer quantity;
 
-    private String content;
+    private BigDecimal totalPrice;
 
-    private Integer price;
-
-    private String brandName;
-
-    private LocalDateTime registeredAt;
-
-    private LocalDateTime unregisteredAt;
+    private String status;
 
     private LocalDateTime createdAt;
 

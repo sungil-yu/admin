@@ -15,23 +15,26 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-public class Item {
+public class Partner {
+
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String  status;
-
-    private String title;
-
     private String name;
 
-    private String content;
+    private String status;
 
-    private Integer price;
+    private String address;
 
-    private String brandName;
+    private String callCenter;
+
+    private String partnerNumber;
+
+    private String businessNumber;
+
+    private String ceoName;
 
     private LocalDateTime registeredAt;
 
@@ -44,5 +47,4 @@ public class Item {
     private LocalDateTime updatedAt;
 
     private String updatedBy;
-
 }

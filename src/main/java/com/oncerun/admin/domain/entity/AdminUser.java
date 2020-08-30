@@ -1,37 +1,34 @@
 package com.oncerun.admin.domain.entity;
 
-
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
 import java.time.LocalDateTime;
 
-@Data
+@Entity
 @AllArgsConstructor
 @NoArgsConstructor
-@Entity
-public class Item {
+@Data
+public class AdminUser {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String  status;
+    private String account;
 
-    private String title;
+    private String password;
 
-    private String name;
+    private String status;
 
-    private String content;
+    private String role;
 
-    private Integer price;
+    private LocalDateTime lastLoginAt;
 
-    private String brandName;
+    private LocalDateTime passwordUpdatedAt;
+
+    //default = 0
+    private int loginFailCount;
 
     private LocalDateTime registeredAt;
 
@@ -44,5 +41,6 @@ public class Item {
     private LocalDateTime updatedAt;
 
     private String updatedBy;
+
 
 }
