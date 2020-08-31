@@ -42,8 +42,15 @@ public class UserRepositoryTest extends AdminApplicationTests {
       User user =  userRepository.findFirstByPhoneNumberOrderByIdDesc(phoneNumber);
 
         user.getOrderGroupList().stream().forEach(orderGroup -> {
-
+            System.out.println("-------주문 묶음-------------");
             System.out.println(orderGroup);
+
+
+            System.out.println("-------주문 상세-------------");
+            orderGroup.getOrderDetailList().stream().forEach( orderDetail -> {
+                System.out.println(orderDetail);
+            });
+
 
         });
 

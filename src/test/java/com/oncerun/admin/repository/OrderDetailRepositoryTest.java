@@ -24,7 +24,6 @@ public class OrderDetailRepositoryTest {
         OrderDetail orderDetail = OrderDetail.builder()
                 .status("WAITING")
                 .arrivalDate(LocalDateTime.now().plusDays(2))
-                .orderGroupId(1L)
                 .itemId(1L)
                 .quantity(1)
                 .totalPrice(BigDecimal.valueOf(900000))
