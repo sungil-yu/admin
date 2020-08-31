@@ -10,6 +10,7 @@ import com.oncerun.admin.repository.PartnerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.time.LocalDateTime;
+import java.util.Optional;
 
 public class ItemApiLogicService implements CrudInterface<ItemApiRequest, ItemApiResponse> {
 
@@ -42,7 +43,11 @@ public class ItemApiLogicService implements CrudInterface<ItemApiRequest, ItemAp
 
     @Override
     public Header<ItemApiResponse> read(Long id) {
-        return null;
+
+        return itemRepository.findById(id)
+                .map(item -> response(item))
+                .orElseGet(() -> Header.ERROR("No Item"));
+
     }
 
     @Override
