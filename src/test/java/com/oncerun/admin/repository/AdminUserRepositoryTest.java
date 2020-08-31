@@ -17,19 +17,22 @@ public class AdminUserRepositoryTest {
     private AdminUserRepository adminUserRepository;
 
     @Test
-    void create(){
+    void create() throws InterruptedException {
         AdminUser adminUser = AdminUser.builder()
-                .account("AdminUser01")
-                .password("AdminUser01")
+                .account("AdminUser03")
+                .password("AdminUser03")
                 .role("PARTNER")
                 .status("REGISTERED")
-                .createdAt(LocalDateTime.now())
-                .createdBy("AdminServer")
+//                .createdAt(LocalDateTime.now())
+//                .createdBy("AdminServer")
                 .build();
 
         AdminUser newAdminUser = adminUserRepository.save(adminUser);
 
         assertThat(newAdminUser).isNotNull();
+
+        newAdminUser.setAccount("updated");
+        adminUserRepository.save(newAdminUser);
     }
 
 }

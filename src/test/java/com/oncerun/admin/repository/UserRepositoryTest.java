@@ -15,24 +15,22 @@ public class UserRepositoryTest extends AdminApplicationTests {
     @Autowired
     private UserRepository userRepository;
 
-    @Test
+  /*  @Test
     void create(){
         User user = User.builder()
-                .account("Test01")
-                .password("Test01")
+                .account("Test03")
+                .password("Test03")
                 .status("REGISTERED")
                 .email("Test01@gmail.com")
-                .phoneNumber("010-1111-2222")
+                .phoneNumber("010-1111-3333")
                 .registeredAt(LocalDateTime.now())
-                .createdAt(LocalDateTime.now())
-                .createdBy("AdminServer")
                 .build();
 
         User newUser = userRepository.save(user);
 
         assertThat(newUser).isNotNull();
 
-    }
+    }*/
 
     @Test
     @Transactional
