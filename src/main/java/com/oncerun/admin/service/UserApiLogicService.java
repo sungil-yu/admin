@@ -49,12 +49,42 @@ public class UserApiLogicService  implements CrudInterface<UserApiRequest, UserA
 
     @Override
     public Header<UserApiResponse> update(Header<UserApiRequest> request) {
-        return null;
+
+        UserApiRequest userApiRequest = request.getData();
+
+        Optional<User> optional = userRepository.findById(userApiRequest.getId());
+
+        return optional
+                .map(user -> {
+
+                    user
+                            .setAccount(userApiRequest.getAccount())
+                            .setPassword(userApiRequest.getPassword())
+                            .setEmail(userApiRequest.getEmail())
+                            .setStatus(userApiRequest.getStatus())
+                            .setUnregisteredAt(userApiRequest.getUnregisteredAt())
+                            .setUnregisteredAt(userApiRequest.getRegisteredAt());
+
+                    return user;
+                })
+                .map(user -> userRepository.save(user))
+                .map(user -> response(user))
+                .orElseGet(() -> Header.ERROR("NO DATA"));
+
+
     }
 
     @Override
-    public Header<UserApiResponse> delete(Long id) {
-        return null;
+    public Header delete(Long id) {
+
+        Optional<User> optional = userRepository.findById(id);
+
+        return optional.map(user -> {
+            userRepository.delete(user);
+            return Header.OK();
+          }).orElseGet(() -> Header.ERROR("No Data"));
+
+
     }
 
 
