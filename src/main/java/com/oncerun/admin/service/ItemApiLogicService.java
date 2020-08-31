@@ -10,7 +10,6 @@ import com.oncerun.admin.repository.PartnerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.time.LocalDateTime;
-import java.util.Optional;
 
 public class ItemApiLogicService implements CrudInterface<ItemApiRequest, ItemApiResponse> {
 

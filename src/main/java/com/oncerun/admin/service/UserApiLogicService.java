@@ -1,6 +1,7 @@
 package com.oncerun.admin.service;
 
 import com.oncerun.admin.domain.entity.User;
+import com.oncerun.admin.domain.enumclass.UserStatus;
 import com.oncerun.admin.domain.network.Header;
 import com.oncerun.admin.domain.network.request.UserApiRequest;
 import com.oncerun.admin.domain.network.response.UserApiResponse;
@@ -26,7 +27,7 @@ public class UserApiLogicService  implements CrudInterface<UserApiRequest, UserA
         User user = User.builder()
                 .account(userApiRequest.getAccount())
                 .password(userApiRequest.getPassword())
-                .status("REGISTERED")
+                .status(UserStatus.REGISTERED)
                 .phoneNumber(userApiRequest.getPhoneNumber())
                 .email(userApiRequest.getEmail())
                 .registeredAt(LocalDateTime.now())
@@ -61,7 +62,7 @@ public class UserApiLogicService  implements CrudInterface<UserApiRequest, UserA
                             .setAccount(userApiRequest.getAccount())
                             .setPassword(userApiRequest.getPassword())
                             .setEmail(userApiRequest.getEmail())
-                            .setStatus(userApiRequest.getStatus())
+                            .setStatus(UserStatus.REGISTERED)
                             .setUnregisteredAt(userApiRequest.getUnregisteredAt())
                             .setUnregisteredAt(userApiRequest.getRegisteredAt());
 

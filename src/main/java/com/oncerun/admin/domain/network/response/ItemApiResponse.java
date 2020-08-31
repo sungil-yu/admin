@@ -1,5 +1,6 @@
 package com.oncerun.admin.domain.network.response;
 
+import com.oncerun.admin.domain.enumclass.ItemStatus;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -16,7 +17,7 @@ public class ItemApiResponse {
 
     private Long id;
 
-    private String  status;
+    private ItemStatus status;
 
     private String name;
 

@@ -1,6 +1,7 @@
 package com.oncerun.admin.service;
 
 import com.oncerun.admin.domain.entity.OrderGroup;
+import com.oncerun.admin.domain.entity.User;
 import com.oncerun.admin.domain.network.Header;
 import com.oncerun.admin.domain.network.request.OrderGroupApiRequest;
 import com.oncerun.admin.domain.network.response.OrderGroupApiResponse;
@@ -11,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.util.Optional;
 
 @Service
 public class OrderGroupApiLogicService implements CrudInterface<OrderGroupApiRequest, OrderGroupApiResponse> {
@@ -57,12 +59,47 @@ public class OrderGroupApiLogicService implements CrudInterface<OrderGroupApiReq
 
     @Override
     public Header<OrderGroupApiResponse> update(Header<OrderGroupApiRequest> request) {
-        return null;
+
+        OrderGroupApiRequest body = request.getData();
+
+     return   orderGroupRepository.findById(body.getId())
+                .map(orderGroup -> {
+                    orderGroup
+                            .setStatus(body.getStatus())
+                            .setOrderType(body.getOrderType())
+                            .setOrderAt(body.getOrderAt())
+                            .setRevName(body.getRevName())
+                            .setRevAddress(body.getRevAddress())
+                            .setPaymentType(body.getPaymentType())
+                            .setTotalPrice(body.getTotalPrice())
+                            .setTotalQuantity(body.getTotalQuantity())
+                            .setArrivalDate(body.getArrivalDate())
+                            .setUser(userRepository.getOne(body.getUserId()));
+
+                    return orderGroup;
+
+                })
+                .map(changeOrderGroup -> orderGroupRepository.save(changeOrderGroup))
+                .map(this::response)
+                .orElseGet(() -> Header.ERROR("No Data"));
+
+
     }
 
     @Override
-    public Header<OrderGroupApiResponse> delete(Long id) {
-        return null;
+    public Header delete(Long id) {
+
+        return orderGroupRepository.findById(id)
+
+                .map(orderGroup -> {
+                    orderGroupRepository.delete(orderGroup);
+                    return Header.OK();
+
+                })
+                .orElseGet(() -> Header.ERROR("No Data"));
+
+
+
     }
 
     private Header<OrderGroupApiResponse> response(OrderGroup orderGroup){

@@ -1,6 +1,7 @@
 package com.oncerun.admin.domain.entity;
 
 
+import com.oncerun.admin.domain.enumclass.OrderType;
 import lombok.*;
 import lombok.experimental.Accessors;
 import org.springframework.data.annotation.CreatedBy;
@@ -37,7 +38,8 @@ public class OrderGroup {
 
     private String status;
 
-    private String orderType;
+    @Enumerated(EnumType.STRING)
+    private OrderType orderType;
 
     private String revAddress;
 

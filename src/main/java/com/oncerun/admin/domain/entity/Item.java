@@ -1,6 +1,7 @@
 package com.oncerun.admin.domain.entity;
 
 
+import com.oncerun.admin.domain.enumclass.ItemStatus;
 import lombok.*;
 import lombok.experimental.Accessors;
 import org.springframework.data.annotation.CreatedBy;
@@ -36,7 +37,8 @@ public class Item {
     @ManyToOne
     private Partner partner;
 
-    private String  status;
+    @Enumerated(EnumType.STRING)
+    private ItemStatus status;
 
     private String title;
 

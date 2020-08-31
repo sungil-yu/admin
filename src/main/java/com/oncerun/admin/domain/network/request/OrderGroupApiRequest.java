@@ -1,6 +1,7 @@
 package com.oncerun.admin.domain.network.request;
 
 
+import com.oncerun.admin.domain.enumclass.OrderType;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -19,7 +20,7 @@ public class OrderGroupApiRequest {
 
     private String status;
 
-    private String orderType;
+    private OrderType orderType;
 
     private String revAddress;
 
