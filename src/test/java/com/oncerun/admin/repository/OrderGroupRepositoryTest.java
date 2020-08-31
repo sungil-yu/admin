@@ -31,7 +31,6 @@ public class OrderGroupRepositoryTest {
                 .totalPrice(BigDecimal.valueOf(9000000))
                 .totalQuantity(1)
                 .arrivalDate(LocalDateTime.now())
-                .userId(1L)
                 .createdAt(LocalDateTime.now())
                 .createdBy("AdminServer")
                 .build();

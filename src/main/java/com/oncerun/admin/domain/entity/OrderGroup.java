@@ -1,15 +1,9 @@
 package com.oncerun.admin.domain.entity;
 
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
@@ -18,6 +12,7 @@ import java.time.LocalDateTime;
 @Entity
 @Data
 @Builder
+@ToString(exclude = {"user"})
 public class OrderGroup {
 
 
@@ -25,7 +20,8 @@ public class OrderGroup {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private Long userId;
+    @ManyToOne
+    private User user;
 
     private String status;
 

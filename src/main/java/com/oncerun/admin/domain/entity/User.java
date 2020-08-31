@@ -1,22 +1,18 @@
 package com.oncerun.admin.domain.entity;
 
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
 @Builder
+@ToString(exclude = {"orderGroup"})
 public class User {
 
     @Id
@@ -45,5 +41,8 @@ public class User {
     private LocalDateTime updatedAt;
 
     private String updatedBy;
+
+    @OneToMany(fetch = FetchType.LAZY , mappedBy = "user")
+    private List<OrderGroup> orderGroupList;
 
 }

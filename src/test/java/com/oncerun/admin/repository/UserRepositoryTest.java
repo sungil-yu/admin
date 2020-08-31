@@ -4,6 +4,7 @@ import com.oncerun.admin.AdminApplicationTests;
 import com.oncerun.admin.domain.entity.User;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
 
@@ -34,11 +35,19 @@ public class UserRepositoryTest extends AdminApplicationTests {
     }
 
     @Test
+    @Transactional
     void read(){
         String phoneNumber = "010-1111-2222";
 
-      User oldUser =  userRepository.findFirstByPhoneNumberOrderByIdDesc(phoneNumber);
+      User user =  userRepository.findFirstByPhoneNumberOrderByIdDesc(phoneNumber);
 
-        assertThat(oldUser).isNotNull();
+        user.getOrderGroupList().stream().forEach(orderGroup -> {
+
+            System.out.println(orderGroup);
+
+        });
+
+
+        assertThat(user).isNotNull();
     }
 }
