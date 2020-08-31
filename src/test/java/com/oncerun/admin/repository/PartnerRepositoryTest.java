@@ -29,7 +29,6 @@ public class PartnerRepositoryTest extends AdminApplicationTests {
                 .registeredAt(LocalDateTime.now())
                 .createdAt(LocalDateTime.now())
                 .createdBy("AdminServer")
-                .categoryId(2L)
                 .build();
 
         Partner newPartner = partnerRepository.save(partner);

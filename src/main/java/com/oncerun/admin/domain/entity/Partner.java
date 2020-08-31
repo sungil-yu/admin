@@ -1,22 +1,18 @@
 package com.oncerun.admin.domain.entity;
 
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
 @Builder
+@ToString(exclude = {"itemList","category"})
 public class Partner {
 
 
@@ -24,7 +20,12 @@ public class Partner {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private Long categoryId;
+    @OneToMany(fetch = FetchType.LAZY,mappedBy = "partner")
+    private List<Item> itemList;
+
+    //patner N : 1 category
+    @ManyToOne
+    private Category category;
 
     private String name;
 

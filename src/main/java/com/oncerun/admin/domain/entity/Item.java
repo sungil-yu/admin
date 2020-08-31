@@ -1,29 +1,31 @@
 package com.oncerun.admin.domain.entity;
 
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
 @Builder
+@ToString(exclude = {"orderDetailList","partner"})
 public class Item {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private Long partnerId;
+    //item 1 : n orderDetail
+    @OneToMany(fetch = FetchType.LAZY,mappedBy = "item")
+    private List<OrderDetail> orderDetailList;
+
+    //item N : 1 Partner
+    @ManyToOne
+    private Partner partner;
 
     private String  status;
 

@@ -29,7 +29,6 @@ class ItemRepositoryTest extends AdminApplicationTests {
                 .registeredAt(LocalDateTime.now())
                 .createdAt(LocalDateTime.now())
                 .createdBy("Partner01")
-                .partnerId(1L)
                 .build();
 
         Item newItem = itemRepository.save(item);

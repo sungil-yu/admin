@@ -48,7 +48,11 @@ public class UserRepositoryTest extends AdminApplicationTests {
 
             System.out.println("-------주문 상세-------------");
             orderGroup.getOrderDetailList().stream().forEach( orderDetail -> {
+                System.out.println(orderDetail.getItem().getPartner().getCategory());
+                System.out.println(orderDetail.getItem());
+                System.out.println(orderDetail.getItem().getPartner());
                 System.out.println(orderDetail);
+
             });
 
 
