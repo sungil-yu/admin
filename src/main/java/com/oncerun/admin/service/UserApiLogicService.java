@@ -5,19 +5,14 @@ import com.oncerun.admin.domain.enumclass.UserStatus;
 import com.oncerun.admin.domain.network.Header;
 import com.oncerun.admin.domain.network.request.UserApiRequest;
 import com.oncerun.admin.domain.network.response.UserApiResponse;
-import com.oncerun.admin.itf.CrudInterface;
-import com.oncerun.admin.repository.UserRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 import java.util.Optional;
 
 @Service
-public class UserApiLogicService  implements CrudInterface<UserApiRequest, UserApiResponse> {
+public class UserApiLogicService  extends BaseService<UserApiRequest, UserApiResponse,User> {
 
-    @Autowired
-    private UserRepository userRepository;
 
     @Override
     public Header<UserApiResponse> create(Header<UserApiRequest> request) {
@@ -33,7 +28,7 @@ public class UserApiLogicService  implements CrudInterface<UserApiRequest, UserA
                 .registeredAt(LocalDateTime.now())
                 .build();
 
-        User newUser = userRepository.save(user);
+        User newUser = baseRepository.save(user);
 
         return response(newUser);
     }
@@ -41,7 +36,7 @@ public class UserApiLogicService  implements CrudInterface<UserApiRequest, UserA
     @Override
     public Header<UserApiResponse> read(Long id) {
 
-        return userRepository.findById(id)
+        return baseRepository.findById(id)
                 .map(user -> response(user))
                 .orElseGet(() -> Header.ERROR("데이터 없음"));
 
@@ -53,7 +48,7 @@ public class UserApiLogicService  implements CrudInterface<UserApiRequest, UserA
 
         UserApiRequest userApiRequest = request.getData();
 
-        Optional<User> optional = userRepository.findById(userApiRequest.getId());
+        Optional<User> optional = baseRepository.findById(userApiRequest.getId());
 
         return optional
                 .map(user -> {
@@ -68,7 +63,7 @@ public class UserApiLogicService  implements CrudInterface<UserApiRequest, UserA
 
                     return user;
                 })
-                .map(user -> userRepository.save(user))
+                .map(user -> baseRepository.save(user))
                 .map(user -> response(user))
                 .orElseGet(() -> Header.ERROR("NO DATA"));
 
@@ -78,10 +73,10 @@ public class UserApiLogicService  implements CrudInterface<UserApiRequest, UserA
     @Override
     public Header delete(Long id) {
 
-        Optional<User> optional = userRepository.findById(id);
+        Optional<User> optional = baseRepository.findById(id);
 
         return optional.map(user -> {
-            userRepository.delete(user);
+            baseRepository.delete(user);
             return Header.OK();
           }).orElseGet(() -> Header.ERROR("No Data"));
 

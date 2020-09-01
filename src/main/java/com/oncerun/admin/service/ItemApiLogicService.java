@@ -1,5 +1,6 @@
 package com.oncerun.admin.service;
 
+import com.fasterxml.jackson.databind.ser.Serializers;
 import com.oncerun.admin.domain.entity.Item;
 import com.oncerun.admin.domain.network.Header;
 import com.oncerun.admin.domain.network.request.ItemApiRequest;
@@ -11,10 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import java.time.LocalDateTime;
 
-public class ItemApiLogicService implements CrudInterface<ItemApiRequest, ItemApiResponse> {
-
-    @Autowired
-    private ItemRepository itemRepository;
+public class ItemApiLogicService extends BaseService<ItemApiRequest, ItemApiResponse,Item> {
 
     @Autowired
     private PartnerRepository partnerRepository;
@@ -35,7 +33,7 @@ public class ItemApiLogicService implements CrudInterface<ItemApiRequest, ItemAp
                 .partner(partnerRepository.getOne(body.getPartnerId()))
                 .build();
 
-        Item newItem = itemRepository.save(item);
+        Item newItem = baseRepository.save(item);
 
         return response(newItem);
     }
@@ -43,7 +41,7 @@ public class ItemApiLogicService implements CrudInterface<ItemApiRequest, ItemAp
     @Override
     public Header<ItemApiResponse> read(Long id) {
 
-        return itemRepository.findById(id)
+        return baseRepository.findById(id)
                 .map(item -> response(item))
                 .orElseGet(() -> Header.ERROR("No Item"));
 
@@ -54,7 +52,7 @@ public class ItemApiLogicService implements CrudInterface<ItemApiRequest, ItemAp
 
         ItemApiRequest body = request.getData();
 
-        return itemRepository.findById(body.getId())
+        return baseRepository.findById(body.getId())
                 .map(entityItem -> {
                     entityItem
                             .setStatus(body.getStatus())
@@ -68,7 +66,7 @@ public class ItemApiLogicService implements CrudInterface<ItemApiRequest, ItemAp
 
                     return entityItem;
                 })
-                .map(newEntity -> itemRepository.save(newEntity))
+                .map(newEntity -> baseRepository.save(newEntity))
                 .map(item -> response(item))
                 .orElseGet(() -> Header.ERROR("No Data"));
 
@@ -77,9 +75,9 @@ public class ItemApiLogicService implements CrudInterface<ItemApiRequest, ItemAp
     @Override
     public Header delete(Long id) {
 
-        return itemRepository.findById(id)
+        return baseRepository.findById(id)
                 .map( item -> {
-                    itemRepository.delete(item);
+                    baseRepository.delete(item);
 
                     return Header.OK();
                 })
